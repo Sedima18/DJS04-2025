@@ -3,6 +3,7 @@ import PodcastGrid from "./components/PodcastGrid";
 import { genres } from "./data";
 import { fetchPodcasts } from "./api/fetchPodcasts";
 import Header from "./components/Header";
+import { PodcastContext } from "./context/podcastcontext";
 
 /**
  * App - The root component of the Podcast Explorer application. It handles:
