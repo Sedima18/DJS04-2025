@@ -1,6 +1,16 @@
 /**
  * PodcastCard.jsx
- * Displays a single podcast preview card.
+ * 
+ * Displays a single podcast preview card inside a responsive grid.
+ * Each card contains an image, title, and last updated date.
+ * 
+ * @component
+ * @param {Object} props - React props
+ * @param {Object} props.podcast - Podcast object containing data
+ * @param {string} props.podcast.image - URL of the podcast image
+ * @param {string} props.podcast.title - Title of the podcast
+ * @param {string} props.podcast.updated - ISO string of the last updated date
+ * @returns {JSX.Element} A styled podcast card component
  */
 
 const PodcastCard = ({ podcast }) => {
