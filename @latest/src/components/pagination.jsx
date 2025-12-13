@@ -1,6 +1,12 @@
 /**
  * Pagination.jsx
- * Pagination controls component.
+ * 
+ * Pagination controls component for the podcast app.
+ * Displays numbered buttons based on the total number of podcasts and items per page.
+ * Users can navigate between pages, and the active page is highlighted.
+ * 
+ * @component
+ * @returns {JSX.Element | null} Pagination buttons or null if only one page
  */
 
 import { useContext } from "react";
