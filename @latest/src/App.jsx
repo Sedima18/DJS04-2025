@@ -11,6 +11,7 @@ import FilterDropdown from "./components/FilterDropdown";
 import SortDropdown from "./components/SortDropdown";
 import Pagination from "./components/Pagination";
 import SearchBar from "./components/SearchBar";
+import "./App.css";
 
 /**
  * Main application component.

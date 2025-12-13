@@ -1,35 +1,128 @@
 /* App.css */
-/* Application-specific styling */
+/* -------------------- */
+/* Layout Containers */
+/* -------------------- */
 
 header {
   max-width: 1200px;
   margin: 0 auto 2rem auto;
+  padding: 0 1rem;
+  text-align: center;
 }
 
 header h1 {
   color: #111827;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
 }
 
 main {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
-/* Podcast card hover enhancement */
+/* -------------------- */
+/* Podcast Grid */
+/* -------------------- */
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* -------------------- */
+/* Podcast Card */
+/* -------------------- */
+
 .podcast-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .podcast-card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Pagination buttons */
+/* -------------------- */
+/* Podcast Image */
+/* -------------------- */
+
+.podcast-image {
+  width: 100%;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 6px;
+  background-color: #f3f4f6;
+}
+
+.podcast-image img {
+  width: auto !important;
+  height: 100% !important;
+  object-fit: contain;
+}
+
+/* -------------------- */
+/* Podcast Text */
+/* -------------------- */
+
+.podcast-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+.podcast-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* -------------------- */
+/* Pagination */
+/* -------------------- */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .pagination button {
   border: 1px solid #d1d5db;
-  background-color: white;
-  padding: 0.4rem 0.75rem;
+  background-color: #ffffff;
+  padding: 0.5rem 0.9rem;
   border-radius: 6px;
+  font-size: 0.9rem;
 }
 
 .pagination button:hover {
@@ -38,11 +131,14 @@ main {
 
 .pagination .active {
   background-color: #111827;
-  color: white;
+  color: #ffffff;
   border-color: #111827;
 }
 
-/* Responsive spacing */
+/* -------------------- */
+/* Responsive adjustments */
+/* -------------------- */
+
 @media (max-width: 640px) {
   header {
     padding: 0 1rem;
@@ -50,5 +146,19 @@ main {
 
   main {
     padding: 0 1rem;
+  }
+
+  .podcast-title {
+    font-size: 0.95rem;
+  }
+
+  .podcast-date {
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  header h1 {
+    font-size: 2.25rem;
   }
 }
