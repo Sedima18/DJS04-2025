@@ -18,13 +18,21 @@ import "./App.css";
  * @returns {JSX.Element}
  */
 const App = () => {
+  const handleApply = () => {
+    // Optional: trigger any action when clicking the Apply button
+    // e.g., refresh search/filter/sort results
+    console.log("Apply button clicked");
+  };
+
   return (
     <PodcastProvider>
       <div className="min-h-screen bg-gray-100 p-6">
         <header className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-4">React Podcast App</h1>
-          <SearchBar />
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-4">
+          <h1 className="text-3xl font-bold mb-4"> Podcast App</h1>
+
+          {/* Controls container */}
+          <div className="controls">
+            <SearchBar />
             <FilterDropdown />
             <SortDropdown />
           </div>
