@@ -1,6 +1,6 @@
 import React from "react";
 import { usePodcastUI } from "../context/PodcastUIContext";
-import { genres } from "../data/genres";
+import { genres } from "../data";
 
 export default function GenreFilter() {
   const { ui, update } = usePodcastUI();
