@@ -1,40 +1,27 @@
-import { genres } from "../data.js";   // get genre data
+/**
+ * PodcastCard.jsx
+ * Displays a single podcast preview.
+ */
 
-export default function PodcastCard({ podcast }) {
-
-  // Convert genre IDs to names using .find()
-  const genreNames = podcast.genres
-    ? podcast.genres
-        .map((id) => {
-          const g = genres.find((genre) => genre.id === id);
-          return g ? g.title : "Unknown";
-        })
-        .join(", ")
-    : "Unknown";
-
-  const updatedDate = podcast.updated
-    ? new Date(podcast.updated).toLocaleDateString()
-    : "N/A";
-
+/**
+ * @param {Object} props
+ * @param {import("../context/PodcastContext").Podcast} props.podcast
+ * @returns {JSX.Element}
+ */
+const PodcastCard = ({ podcast }) => {
   return (
-    <div style={{
-      border: "1px solid #ccc",
-      borderRadius: "8px",
-      padding: "1rem",
-      textAlign: "center"
-    }}>
+    <div className="bg-white p-4 rounded shadow hover:shadow-lg transition">
       <img
         src={podcast.image}
         alt={podcast.title}
-        style={{ width: "100%", borderRadius: "8px" }}
+        className="w-full h-40 object-cover rounded mb-2"
       />
-      <h3>{podcast.title}</h3>
-
-      <p>Seasons: {podcast.seasons}</p>
-
-      {/* ✔ NOW SHOWS REAL GENRE NAMES */}
-      <p>Genres: {genreNames}</p>
-
-      <p>Updated: {updatedDate}</p>
+      <h2 className="font-bold text-lg">{podcast.title}</h2>
+      <p className="text-sm text-gray-500">
+        Last updated: {new Date(podcast.updated).toLocaleDateString()}
+      </p>
     </div>
   );
+};
+
+export default PodcastCard;
