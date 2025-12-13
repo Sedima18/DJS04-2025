@@ -1,16 +1,33 @@
-# React + Vite
+# React Podcast App (DSJ04)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Project Folder:** `DSJ04-React-Podcast-App`  
+**Description:** A React application to browse, search, filter, sort, and paginate podcasts.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## React Compiler
+This app allows users to:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Search podcasts by title.
+- Filter podcasts by genre.
+- Sort podcasts by newest first or alphabetically.
+- View podcast details including title, number of seasons, genres, and last updated date.
+- Navigate multiple pages of podcasts using pagination.
 
-## Expanding the ESLint configuration
+All podcast data is fetched from the public API: (https://podcast-api.netlify.app).  
+Genre names are mapped locally from `data.js`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Features
+
+- **Responsive grid layout** for podcasts (up to 4 cards per row on desktop).  
+- **Podcast cards** show:
+  - Title
+  - Number of seasons (from API)
+  - Genres (mapped from `data.js`)
+  - Last updated date
+- **Search, filter, and sort** controls are synchronized and responsive.  
+- **Pagination** maintains current search/filter/sort state.  
+- Clean and modular React components with JSDoc documentation.
