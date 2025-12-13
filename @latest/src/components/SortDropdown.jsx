@@ -1,17 +1,34 @@
-import React from "react";
-import { usePodcastUI } from "../context/PodcastContext";
+/**
+ * SortDropdown.jsx
+ * Dropdown component for sorting podcasts.
+ */
 
-export default function SortSelect() {
-  const { ui, update } = usePodcastUI();
+import { useContext } from "react";
+import { PodcastContext } from "../context/PodcastContext";
+
+/**
+ * Sorting control component.
+ * @returns {JSX.Element}
+ */
+const SortDropdown = () => {
+  const { sort, setSort, setCurrentPage } = useContext(PodcastContext);
+
+  /**
+   * Handle sort option change.
+   * @param {React.ChangeEvent<HTMLSelectElement>} event
+   */
+  const handleChange = (event) => {
+    setSort(event.target.value);
+    setCurrentPage(1);
+  };
+
   return (
-    <select
-      value={ui.sortBy}
-      onChange={(e) => update({ sortBy: e.target.value, page: 1 })}
-      aria-label="Sort podcasts"
-    >
-      <option value="newest">Newest first</option>
+    <select value={sort} onChange={handleChange} className="border p-2 rounded">
+      <option value="newest">Newest First</option>
       <option value="title-asc">Title A–Z</option>
       <option value="title-desc">Title Z–A</option>
     </select>
   );
-}
+};
+
+export default SortDropdown;
