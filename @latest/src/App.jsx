@@ -1,94 +1,41 @@
-import React, { useMemo } from "react";
-import usePodcasts from "./api/fetchPodcasts";
-import { PodcastUIProvider, usePodcastUI } from "./context/PodcastUIContext";
-import SearchBar from "./components/searchBar";
-import SortSelect from "./components/sortsSelects";
-import GenreFilter from "./components/genreFilter";
+/**
+ * App.jsx
+ * Root component of the React Podcast App.
+ * Wraps the application with PodcastProvider and renders core UI sections.
+ */
+
+import React from "react";
+import { PodcastProvider } from "./context/PodcastContext";
 import PodcastGrid from "./components/PodcastGrid";
-import Pagination from "./components/pagination";
-import { genreMap } from "./data";
+import FilterDropdown from "./components/FilterDropdown";
+import SortDropdown from "./components/SortDropdown";
+import Pagination from "./components/Pagination";
+import SearchBar from "./components/SearchBar";
 
 /**
- * filterAndSortPodcasts - applies search, filters, and sorting
- * @param {Array} list
- * @param {Object} ui
+ * Main application component.
+ * @returns {JSX.Element}
  */
-function filterAndSortPodcasts(list, ui) {
-  const q = ui.search.trim().toLowerCase();
-
-  // filter by search + genres
-  let out = list.filter(p => {
-    const titleMatches = p.title && p.title.toLowerCase().includes(q);
-    const genreMatch =
-      ui.selectedGenres.length === 0 ||
-      (p.genres && p.genres.some(g => ui.selectedGenres.includes(g)));
-    return titleMatches && genreMatch;
-  });
-
-  // sort
-  if (ui.sortBy === "newest") {
-    out.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-  } else if (ui.sortBy === "title-asc") {
-    out.sort((a, b) => a.title.localeCompare(b.title));
-  } else if (ui.sortBy === "title-desc") {
-    out.sort((a, b) => b.title.localeCompare(a.title));
-  }
-
-  // map genre ids to titles for display convenience
-  return out.map(p => ({ ...p, genreTitles: (p.genres || []).map(id => genreMap[id] || id) }));
-}
-
-function InnerApp() {
-  const { loading, error, data } = usePodcasts();
-  const { ui, update } = usePodcastUI();
-
-  // compute filtered list
-  const filtered = useMemo(() => filterAndSortPodcasts(data, ui), [data, ui]);
-
-  // pagination
-  const total = filtered.length;
-  const pageCount = Math.max(1, Math.ceil(total / ui.pageSize));
-  const currentPage = Math.min(ui.page, pageCount);
-  const start = (currentPage - 1) * ui.pageSize;
-  const pageItems = filtered.slice(start, start + ui.pageSize);
-
-  // ensure page number stays valid if filters change
-  if (ui.page !== currentPage) update({ page: currentPage });
-
+const App = () => {
   return (
-    <div className="app-container">
-      <header>
-        <h1>Podcast Browser</h1>
-      </header>
+    <PodcastProvider>
+      <div className="min-h-screen bg-gray-100 p-6">
+        <header className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-4">React Podcast App</h1>
+          <SearchBar />
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-4">
+            <FilterDropdown />
+            <SortDropdown />
+          </div>
+        </header>
 
-      <section className="controls">
-        <SearchBar />
-        <GenreFilter />
-        <SortSelect />
-      </section>
-
-      <main>
-        {loading && <p>Loading…</p>}
-        {error && <p>Error loading podcasts</p>}
-        {!loading && !error && (
-          <>
-            <PodcastGrid podcasts={pageItems} />
-            <Pagination
-              page={currentPage}
-              pageCount={pageCount}
-              onPageChange={(p) => update({ page: p })}
-            />
-          </>
-        )}
-      </main>
-    </div>
+        <main>
+          <PodcastGrid />
+          <Pagination />
+        </main>
+      </div>
+    </PodcastProvider>
   );
-}
+};
 
-export default function App() {
-  return (
-    <PodcastUIProvider>
-      <InnerApp />
-    </PodcastUIProvider>
-  );
-}
+export default App;

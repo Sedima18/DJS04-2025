@@ -1,5 +1,5 @@
 import React from "react";
-import { usePodcastUI } from "../context/PodcastUIContext";
+import { usePodcastUI } from "../context/PodcastContext";
 
 export default function SortSelect() {
   const { ui, update } = usePodcastUI();

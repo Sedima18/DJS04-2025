@@ -1,5 +1,5 @@
 import React from "react";
-import { usePodcastUI } from "../context/PodcastUIContext";
+import { usePodcastUI } from "../context/PodcastContext";
 import { genres } from "../data";
 
 export default function GenreFilter() {
