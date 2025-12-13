@@ -1,20 +1,40 @@
-import React from "react";
-import { usePodcastUI } from "../context/PodcastContext";
+/**
+ * SearchBar.jsx
+ * Input component for searching podcasts by title.
+ */
+
+import { useContext, useEffect, useState } from "react";
+import { PodcastContext } from "../context/PodcastContext";
 
 /**
- * SearchBar - controlled input that updates UI state
+ * Search bar with debounced input handling.
+ * @returns {JSX.Element}
  */
-export default function SearchBar() {
-  const { ui, update } = usePodcastUI();
+const SearchBar = () => {
+  const { setSearch, setCurrentPage } = useContext(PodcastContext);
+  const [term, setTerm] = useState("");
+
+  /**
+   * Debounce search input to reduce unnecessary updates.
+   */
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setSearch(term);
+      setCurrentPage(1);
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [term, setSearch, setCurrentPage]);
+
   return (
-    <div className="searchbar">
-      <input
-        aria-label="Search podcasts"
-        placeholder="Search podcasts..."
-        value={ui.search}
-        onChange={(e) => update({ search: e.target.value, page: 1 })}
-      />
-      <button onClick={() => update({ search: "", page: 1 })}>Clear</button>
-    </div>
+    <input
+      type="text"
+      value={term}
+      onChange={(e) => setTerm(e.target.value)}
+      placeholder="Search podcasts..."
+      className="border p-2 rounded w-full sm:w-80"
+    />
   );
-}
+};
+
+export default SearchBar;
