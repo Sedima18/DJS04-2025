@@ -5,7 +5,7 @@
 
 import { useContext } from "react";
 import { PodcastContext } from "../context/PodcastContext";
-import { genres } from "../data/genres";
+import { genres } from "../data";
 
 /**
  * Genre filter dropdown.
