@@ -2,18 +2,37 @@
  * PodcastCard.jsx
  * 
  * Displays a single podcast preview card inside a responsive grid.
- * Each card contains an image, title, and last updated date.
+ * Each card contains an image, title, number of shows, genres, and last updated date.
  * 
  * @component
  * @param {Object} props - React props
  * @param {Object} props.podcast - Podcast object containing data
  * @param {string} props.podcast.image - URL of the podcast image
  * @param {string} props.podcast.title - Title of the podcast
+ * @param {number[]} props.podcast.genres - Array of genre IDs
  * @param {string} props.podcast.updated - ISO string of the last updated date
+ * @param {number} props.podcast.id - Unique podcast ID
  * @returns {JSX.Element} A styled podcast card component
  */
 
+import React from "react";
+import { genres } from "../data"; // Import genres
+
 const PodcastCard = ({ podcast }) => {
+  // Calculate total number of shows for this podcast by checking genres
+  let numberOfShows = 0;
+  if (podcast.genres && podcast.genres.length > 0) {
+    numberOfShows = genres
+      .filter((genre) => podcast.genres.includes(genre.id))
+      .reduce((total, genre) => total + (genre.shows ? genre.shows.length : 0), 0);
+  }
+
+  // Map genre IDs to names
+  const podcastGenres = genres
+    .filter((genre) => podcast.genres && podcast.genres.includes(genre.id))
+    .map((genre) => genre.title)
+    .join(", ");
+
   return (
     <div className="podcast-card bg-white p-4 rounded-lg shadow transition-transform hover:-translate-y-1 hover:shadow-lg flex flex-col">
       
@@ -31,7 +50,15 @@ const PodcastCard = ({ podcast }) => {
         {podcast.title}
       </h2>
 
-      {/* Podcast date */}
+      {/* Number of shows */}
+      <p className="text-sm text-gray-600 mt-1">
+        {numberOfShows} {numberOfShows === 1 ? "Show" : "Shows"}
+      </p>
+
+      {/* Genres */}
+      <p className="text-sm text-gray-600 mt-1">{podcastGenres}</p>
+
+      {/* Last updated date */}
       <p className="text-sm text-gray-500 mt-1">
         Last updated: {new Date(podcast.updated).toLocaleDateString()}
       </p>
