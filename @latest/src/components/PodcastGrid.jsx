@@ -1,18 +1,26 @@
-import React from "react";
+/**
+ * PodcastGrid.jsx
+ * Displays a responsive grid of podcast cards.
+ */
+
+import { useContext } from "react";
+import { PodcastContext } from "../context/PodcastContext";
 import PodcastCard from "./PodcastCard";
 
 /**
- * PodcastGrid - displays a list of PodcastCard components
- * @param {{ podcasts: Array }} props
+ * Podcast grid component.
+ * @returns {JSX.Element}
  */
-export default function PodcastGrid({ podcasts }) {
-  if (!podcasts.length) return <p>No results.</p>;
+const PodcastGrid = () => {
+  const { podcasts } = useContext(PodcastContext);
 
   return (
-    <div className="podcast-grid">
-      {podcasts.map(p => (
-        <PodcastCard key={p.id} podcast={p} />
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {podcasts.map((podcast) => (
+        <PodcastCard key={podcast.id} podcast={podcast} />
       ))}
     </div>
   );
-}
+};
+
+export default PodcastGrid;
