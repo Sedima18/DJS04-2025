@@ -1,24 +1,36 @@
-import React from "react";
+/**
+ * Pagination.jsx
+ * Handles pagination controls for podcast results.
+ */
+
+import { useContext } from "react";
+import { PodcastContext } from "../context/PodcastContext";
 
 /**
- * Pagination - simple numbered pagination
+ * Pagination component.
+ * @returns {JSX.Element}
  */
-export default function Pagination({ page, pageCount, onPageChange }) {
-  if (pageCount <= 1) return null;
-  const pages = Array.from({ length: pageCount }, (_, i) => i + 1);
+const Pagination = () => {
+  const { currentPage, setCurrentPage, totalPodcasts, itemsPerPage } =
+    useContext(PodcastContext);
+
+  const totalPages = Math.ceil(totalPodcasts / itemsPerPage);
+
   return (
-    <nav className="pagination" aria-label="Pagination">
-      <button disabled={page===1} onClick={() => onPageChange(page-1)}>Prev</button>
-      {pages.map(p => (
+    <div className="flex justify-center gap-2 mt-6">
+      {Array.from({ length: totalPages }, (_, index) => (
         <button
-          key={p}
-          aria-current={p === page ? "page" : undefined}
-          onClick={() => onPageChange(p)}
+          key={index}
+          onClick={() => setCurrentPage(index + 1)}
+          className={`px-3 py-1 border rounded ${
+            currentPage === index + 1 ? "bg-black text-white" : ""
+          }`}
         >
-          {p}
+          {index + 1}
         </button>
       ))}
-      <button disabled={page===pageCount} onClick={() => onPageChange(page+1)}>Next</button>
-    </nav>
+    </div>
   );
-}
+};
+
+export default Pagination;
