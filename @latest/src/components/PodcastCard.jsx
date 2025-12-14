@@ -2,31 +2,24 @@
  * PodcastCard.jsx
  * 
  * Displays a single podcast preview card inside a responsive grid.
- * Each card contains an image, title, number of shows, genres, and last updated date.
+ * Each card contains an image, title, number of seasons, genres, and last updated date.
  * 
  * @component
  * @param {Object} props - React props
- * @param {Object} props.podcast - Podcast object containing data
+ * @param {Object} props.podcast - Podcast object from API
  * @param {string} props.podcast.image - URL of the podcast image
  * @param {string} props.podcast.title - Title of the podcast
  * @param {number[]} props.podcast.genres - Array of genre IDs
+ * @param {number} props.podcast.seasons - Number of seasons from API
  * @param {string} props.podcast.updated - ISO string of the last updated date
  * @param {number} props.podcast.id - Unique podcast ID
  * @returns {JSX.Element} A styled podcast card component
  */
 
 import React from "react";
-import { genres } from "../data"; // Import genres
+import { genres } from "../data"; // Map genre IDs to titles
 
 const PodcastCard = ({ podcast }) => {
-  // Calculate total number of shows for this podcast by checking genres
-  let numberOfShows = 0;
-  if (podcast.genres && podcast.genres.length > 0) {
-    numberOfShows = genres
-      .filter((genre) => podcast.genres.includes(genre.id))
-      .reduce((total, genre) => total + (genre.shows ? genre.shows.length : 0), 0);
-  }
-
   // Map genre IDs to names
   const podcastGenres = genres
     .filter((genre) => podcast.genres && podcast.genres.includes(genre.id))
@@ -50,9 +43,9 @@ const PodcastCard = ({ podcast }) => {
         {podcast.title}
       </h2>
 
-      {/* Number of shows */}
+      {/* Number of seasons */}
       <p className="text-sm text-gray-600 mt-1">
-        {numberOfShows} {numberOfShows === 1 ? "Show" : "Shows"}
+        {podcast.seasons} {podcast.seasons === 1 ? "Season" : "Seasons"}
       </p>
 
       {/* Genres */}
